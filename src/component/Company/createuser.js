@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 const Createuser = () => {
+  const id = useId();
+
   const navigate = useNavigate();
   const [userlist, setUserlist] = useState([]);
   let arr = [];
@@ -13,16 +15,16 @@ const Createuser = () => {
     arr.push(add);
     console.log("arr", ...arr);
     setUserlist(...arr);
-    setInputValues({companyID:companyID.id});
-    
+    setInputValues({ companyID: companyID.id });
   }
   let [inputValues, setInputValues] = useState({
     username: "",
     password: "",
     companyID: "",
+    id: "",
   });
   {
-    console.log("input", inputValues);
+    console.log("input", id);
   }
   const handleInputChange = ({ target }) => {
     console.log("id", target);
@@ -44,9 +46,7 @@ const Createuser = () => {
   }
   function handleSubmit(e) {
     console.log("e", e);
-
     userlist.push(e);
-    // console.log("data", userlist);
     window.localStorage.setItem("userdata", JSON.stringify(userlist));
     navigate("../companyHomepage");
   }
@@ -65,6 +65,19 @@ const Createuser = () => {
               name="username"
               type="text"
               value={inputValues.username}
+              onChange={handleInputChange}
+              className="form-control"
+              // id="inputValid"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label mt-2" htmlFor="inputValid">
+              ID
+            </label>
+            <input
+              name="id"
+              type="number"
+              value={inputValues.id}
               onChange={handleInputChange}
               className="form-control"
               // id="inputValid"

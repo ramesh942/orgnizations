@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Userlist = () => {
   const [userlist, setUserlist] = useState([]);
-    const [list, setlist] = useState([]);
+  const [list, setlist] = useState([]);
 
-    const [id, setId] = useState("");
+  const [id, setId] = useState("");
 
-  // conso
+  const history = useNavigate();
+
   const arr = [];
   function data() {
     var add = JSON.parse(window.localStorage.getItem("userdata"));
@@ -15,23 +18,32 @@ const Userlist = () => {
   useEffect(() => {
     data();
   }, []);
-   function company() {
-     var add = JSON.parse(window.localStorage.getItem("companylogin"));
-     setId(add.id);
-   }
-   useEffect(() => {
-     company();
-   }, []);
+  function company() {
+    var add = JSON.parse(window.localStorage.getItem("companylogin"));
+    setId(add.id);
+  }
+  useEffect(() => {
+    company();
+  }, []);
 
-    var Login = userlist.filter((value) => {
-      return id === value.companyID;
-    });
+  var Login = userlist.filter((value) => {
+    return id === value.companyID;
+  });
 
+  const handleClick = (id) => {
+    console.log("hi", id);
+    history(`../userdetails/${id}`);
+  };
+  console.log("Login", Login);
+  const handleDelete = (index) => {
+    console.log("index", index);
+    // console.log("in handle",userlist.filter((i) => i !== index));
+    var arr = Login.filter((item, i) => i !== index);
+    console.log("arr", arr);
+    setUserlist(arr);
+  };
   return (
     <div>
-      {/* <h1 className="my-5 text-center">Manage Company</h1> */}
-      {/* {console.table("company1", company)} */}
-
       {Login.length >= 0 ? (
         <div className="card bg-secondary p-3">
           <table className="table table-hover">
@@ -44,13 +56,17 @@ const Userlist = () => {
               </tr>
             </thead>
             <tbody>
-              {Login.map((data) => {
+              {Login.map((data, i) => {
                 return (
                   <>
-                    <tr key={data.id}>
+                    <tr key={data.id} onClick={(e) => handleClick(data.id)}>
+                      <td>{data.id}</td>
                       <td>{data.username}</td>
                       <td>{data.password}</td>
                       <td>{data.companyID}</td>
+                      <td>
+                        <button onClick={(e) => handleDelete(i)}>Delete</button>
+                      </td>
                     </tr>
                   </>
                 );

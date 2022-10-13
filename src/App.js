@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Payadmin from "./component/systemadmin";
 import Homepage from "./component/homepage";
@@ -14,6 +13,7 @@ import Companyadmin from "./component/Company/company";
 import CompanyHomepage from "./component/Company/companyhomepage";
 import Createuser from "./component/Company/createuser";
 import Userlist from "./component/Company/userlist";
+import UserDetail from "./component/Company/userdetails";
 
 function App() {
   return (
@@ -28,10 +28,9 @@ function App() {
           <Route path="/createcompanyform" element={<Createcompanyform />} />
           <Route path="/companyadmin" element={<Companyadmin />} />
           <Route path="/companyHomepage" element={<CompanyHomepage />} />
-          <Route path="/createuser" element={<Createuser/>}/>
-          <Route path= "/userlist" element = {<Userlist/>}/>
-
-
+          <Route path="/createuser" element={<Createuser />} />
+          <Route path="/userlist" element={<Userlist />} />
+          <Route path="/userdetails/:id" element={<UserDetail />} />
           {/* </Routes> */}
         </Routes>
       </Router>

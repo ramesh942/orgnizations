@@ -25,12 +25,7 @@ function CompanyHomepage() {
   });
 
   listofuser.push(Login);
-  console.log("login", Login);
-  if (id === Login) {
-    console.log("inif", userlist);
-  } else {
-    console.log("inelese");
-  }
+
   // console.log("Logindata",Login);
   // console.log("userlist", userlist.find((value) => {
   //   console.log("Login", value.companyID);
